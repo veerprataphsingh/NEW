@@ -4,24 +4,33 @@ import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Eye } from 'lucide-react';
 
 const ProductCard = ({ product, onAddToCart, onViewDetails }) => {
+  const handleCardClick = (e) => {
+    // Only trigger if clicking on the card itself, not on buttons
+    if (e.target === e.currentTarget || e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P') {
+      onViewDetails();
+    }
+  };
+
   return (
-    <div className="glass rounded-2xl overflow-hidden card-hover" data-testid={`product-card-${product.id}`}>
+    <div 
+      className="glass rounded-2xl overflow-hidden card-hover cursor-pointer" 
+      data-testid={`product-card-${product.id}`}
+      onClick={handleCardClick}
+    >
       <div className="relative">
         <img 
           src={product.image_url} 
           alt={product.name}
-          className="w-full h-56 object-cover cursor-pointer"
-          onClick={onViewDetails}
+          className="w-full h-56 object-cover"
         />
-        <Badge className="absolute top-4 right-4 bg-white/90 text-purple-600">
+        <Badge className="absolute top-4 right-4 bg-white/90 text-purple-600 pointer-events-none">
           {product.category}
         </Badge>
       </div>
       
       <div className="p-6">
         <h3 
-          className="text-xl font-semibold mb-2 cursor-pointer hover:text-purple-600 transition-colors"
-          onClick={onViewDetails}
+          className="text-xl font-semibold mb-2 hover:text-purple-600 transition-colors"
           data-testid="product-card-name"
         >
           {product.name}
@@ -47,7 +56,10 @@ const ProductCard = ({ product, onAddToCart, onViewDetails }) => {
         
         <div className="flex gap-2">
           <Button 
-            onClick={onAddToCart}
+            onClick={(e) => {
+              e.stopPropagation();
+              onAddToCart();
+            }}
             disabled={product.stock === 0}
             className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600"
             data-testid="product-card-add-to-cart"
@@ -56,7 +68,10 @@ const ProductCard = ({ product, onAddToCart, onViewDetails }) => {
             Add to Cart
           </Button>
           <Button 
-            onClick={onViewDetails}
+            onClick={(e) => {
+              e.stopPropagation();
+              onViewDetails();
+            }}
             variant="outline"
             size="icon"
             data-testid="product-card-view-details"
