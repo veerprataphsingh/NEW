@@ -5,8 +5,9 @@ import { ShoppingCart, Eye } from 'lucide-react';
 
 const ProductCard = ({ product, onAddToCart, onViewDetails }) => {
   const handleCardClick = (e) => {
-    // Only trigger if clicking on the card itself, not on buttons
-    if (e.target === e.currentTarget || e.target.tagName === 'IMG' || e.target.tagName === 'H3' || e.target.tagName === 'P') {
+    // Don't navigate if clicking on buttons or their children
+    const clickedButton = e.target.closest('button');
+    if (!clickedButton) {
       onViewDetails();
     }
   };
