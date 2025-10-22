@@ -148,18 +148,20 @@ const ProductsPage = () => {
             data-testid="search-input"
           />
           
-          <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger className="md:w-1/4" data-testid="category-filter">
-              <SelectValue placeholder="Category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              <SelectItem value="phones">Phones</SelectItem>
-              <SelectItem value="laptops">Laptops</SelectItem>
-              <SelectItem value="metaglass">MetaGlass</SelectItem>
-              <SelectItem value="cameras">Cameras</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="md:w-1/4 relative z-50">
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger className="w-full" data-testid="category-filter">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent className="z-50">
+                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem value="phones">Phones</SelectItem>
+                <SelectItem value="laptops">Laptops</SelectItem>
+                <SelectItem value="metaglass">MetaGlass</SelectItem>
+                <SelectItem value="cameras">Cameras</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         {/* Products Grid */}
